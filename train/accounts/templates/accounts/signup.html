@@ -1,0 +1,28 @@
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2 col-sm-offset-5">
+            <form method='POST'action="{%url 'signup'%}">
+                {% csrf_token %}
+                <h1 class="text-center text-primary">Signup</h1>
+                {%if error%}
+                <h5>{{error}}</h5>
+                {%endif%}
+                <input class="form-control text-center" type="text" placeholder="Username" name="username"></input><br>
+                <input class="form-control text-center" type="password" placeholder="Password" name="password1"></input><br>
+                <input class="form-control text-center" type="password" placeholder="Confirm Password" name="password2"></input><br>
+                <div class="text-center">
+                    <button class="btn btn-primary center">Signup!</button>
+                </div><br>
+                <p class="text-center"><a href='{%url "login"%}' class="center">Login</a></p>
+            </form>
+        </div>
+    </div>
+</div>
+
+</html>
