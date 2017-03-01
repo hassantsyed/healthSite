@@ -3,6 +3,11 @@
     Your Health Team
 {%endblock%}
 {%block content%}
+{% for p in user.group.all %}
+  {%if p.area == "MD"%}
+   {{p.username}}
+   {%endif%}
+{% endfor %}
     <div class="row">
       <div class="col-sm-4">
         <h3 class="text-center">Personal Trainer</h3><hr>
