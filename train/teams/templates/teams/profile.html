@@ -9,7 +9,9 @@
         <h3 class="text-center">Personal Trainer</h3><hr>
         {% for p in user.group.all %}
           {%if p.area == "TRAIN"%}
-           {{p.username}}
+           <h4 class="text-center">{{p.username}}</h4>
+           <p class="text-center">{{p.experience}}</p>
+           <p class="text-center">{{p.location}}</p>
           {%endif%}
         {% endfor %}
       </div>
@@ -17,7 +19,9 @@
         <h3 class="text-center">Nutritionist</h3><hr>
         {% for p in user.group.all %}
           {%if p.area == "NUTRITION"%}
-           {{p.username}}
+           <h4 class="text-center">{{p.username}}</h4>
+           <p class="text-center">{{p.experience}}</p>
+           <p class="text-center">{{p.location}}</p>
           {%endif%}
         {% endfor %}
       </div>
@@ -25,7 +29,9 @@
         <h3 class="text-center">Doctor</h3><hr>
         {% for p in user.group.all %}
           {%if p.area == "MD"%}
-           {{p.username}}
+           <h4 class="text-center">{{p.username}}</h4>
+           <p class="text-center">{{p.experience}}</p>
+           <p class="text-center">{{p.location}}</p>
           {%endif%}
         {% endfor %}
       </div>

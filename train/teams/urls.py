@@ -18,6 +18,6 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^profile/', views.profile, name='profile'),
-    url(r'^browse/', views.browse, name='browse'),
+    url(r'^profile/$', views.profile, name='profile'),
+    url(r'^browse/$', views.browse, name='browse'),
 ]
