@@ -39,6 +39,8 @@ def info(request):
         user = request.user
         user.experience = request.POST['experience']
         user.location = request.POST['location']
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
         area = {'Personal Trainer':'TRAIN', 'Nutritionist':'NUTRITION' , 'Doctor': 'MD', 'User':'User'}
         temp = request.POST['selection']
         #print(area[temp])
