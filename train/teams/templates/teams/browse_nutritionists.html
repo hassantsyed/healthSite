@@ -16,7 +16,7 @@ Assemble Your Team
 <div class="row">
   {% for n in nutritionists%}
   <div class="col-sm-4">
-  {{n.username}}
+  <a href="{%url 'person' n.username%}">{{n.username}}</a>
   </div>
   {%endfor%}
 </div>

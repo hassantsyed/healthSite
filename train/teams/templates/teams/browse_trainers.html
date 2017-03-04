@@ -16,7 +16,7 @@ Assemble Your Team
 <div class="row">
   {% for t in trainers%}
   <div class="col-sm-4">
-  {{t.username}}
+  <a href="{%url 'person' t.username%}">{{t.username}}</a>
   </div>
   {%endfor%}
 </div>
