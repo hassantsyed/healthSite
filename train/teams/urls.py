@@ -19,6 +19,9 @@ from . import views
 
 urlpatterns = [
     url(r'^profile/$', views.profile, name='profile'),
-    url(r'^browse/$', views.browse, name='browse'),
+    url(r'^browse/$', views.browse_trainers, name='browse_trainers'),
+    url(r'^browse/trainers$', views.browse_trainers, name='browse_trainers'),
+    url(r'^browse/nutritionists$', views.browse_nutritionists, name='browse_nutritionists'),
+    url(r'^browse/doctors$', views.browse_doctors, name='browse_doctors'),
     url(r'^browse/(?P<username>[^/.]+)$', views.person, name='person'),
 ]
