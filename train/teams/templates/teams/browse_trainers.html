@@ -1,0 +1,24 @@
+{% extends "teams/index.html"%}
+{%block header%}
+Assemble Your Team
+{%endblock%}
+
+{%block content%}
+<div class="wrapper text-center">
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <a href="{%url 'browse_trainers'%}" type="button" class="btn btn-danger btn-md active">Personal Trainers</a>
+    <a href="{%url 'browse_nutritionists'%}" type="button" class="btn btn-danger btn-md">Nutritionists</a>
+    <a href="{%url 'browse_doctors'%}" type="button" class="btn btn-danger btn-md">Doctors</a>
+  </div>
+</div>
+<hr>
+
+<div class="row">
+  {% for t in trainers%}
+  <div class="col-sm-4">
+  {{t.username}}
+  </div>
+  {%endfor%}
+</div>
+
+{%endblock%}
