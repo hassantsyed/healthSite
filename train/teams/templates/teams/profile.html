@@ -20,7 +20,6 @@
         {% for p in user.group.all %}
           {%if p.area == "NUTRITION"%}
            <h4 class="text-center"><a href="{%url 'person' p.username%}">{{p.username}}</a></h4>
-           <img src="{{p.pic.url}}">
            <p class="text-center">{{p.experience}}</p>
            <p class="text-center">{{p.location}}</p>
           {%endif%}
