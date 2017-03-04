@@ -7,3 +7,4 @@ class User(AbstractUser):
     EXPERTISE = (('NUTRITION','Nutritionist'), ('TRAIN', 'Personal Trainer'), ('MD', 'Doctor'), ('User', 'User'))
     area = models.CharField(max_length=15, choices=EXPERTISE, default='User')
     group = models.ManyToManyField('self')
+    pic = models.ImageField(blank=True)
