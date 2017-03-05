@@ -6,5 +6,5 @@ class User(AbstractUser):
     location = models.TextField(max_length=100)
     EXPERTISE = (('NUTRITION','Nutritionist'), ('TRAIN', 'Personal Trainer'), ('MD', 'Doctor'), ('User', 'User'))
     area = models.CharField(max_length=15, choices=EXPERTISE, default='User')
-    group = models.ManyToManyField('self')
+    group = models.ManyToManyField('self', blank=True)
     pic = models.ImageField(upload_to='media/', default='media/noprofile.png')
