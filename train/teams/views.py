@@ -17,11 +17,16 @@ def browse_trainers(request):
 def person(request, username):
     p = get_object_or_404(User, username=username)
     user = request.user
+    if request.method == "POST":
+        if (user.group.all().filter(username=username)):
+            user.group.remove(User.objects.filter(username=username)[0])
+            print('need to delete relationship')
+        else:
+            user.group.add(User.objects.filter(username=username)[0])
     if (user.group.all().filter(username=username)):
         b = True
     else:
         b = False
-    print(b)
     return render(request, 'teams/person.html', {'person':p,'button':b})
 
 @login_required
