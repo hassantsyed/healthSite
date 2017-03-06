@@ -16,7 +16,13 @@ def browse_trainers(request):
 @login_required
 def person(request, username):
     p = get_object_or_404(User, username=username)
-    return render(request, 'teams/person.html', {'person':p})
+    user = request.user
+    if (user.group.all().filter(username=username)):
+        b = True
+    else:
+        b = False
+    print(b)
+    return render(request, 'teams/person.html', {'person':p,'button':b})
 
 @login_required
 def browse_doctors(request):

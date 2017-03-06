@@ -4,5 +4,10 @@
 
 {%endblock%}
 {%block content%}
+{%if button is False%}
+  <button class="btn btn-primary">Recruit</button>
+{%else%}
+  <button class="btn btn-danger">Drop</button>
+{%endif%}
 {{person.experience}}
 {%endblock%}
