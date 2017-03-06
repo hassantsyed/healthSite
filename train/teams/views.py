@@ -6,7 +6,9 @@ from accounts.models import User
 @login_required
 def profile(request):
     user = request.user
-    return render(request, 'teams/profile.html', {'user':user})
+    peeps = user.group.all()
+    peeps = peeps.exclude(area="User")
+    return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps})
 @login_required
 def browse_trainers(request):
     trainers = User.objects.filter(area="TRAIN")
