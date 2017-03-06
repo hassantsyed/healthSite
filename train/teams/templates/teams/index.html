@@ -18,12 +18,6 @@
     <!-- Custom CSS -->
     <link href="{% static 'teams/css/sb-admin.css' %}" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="{% static 'css/plugins/morris.css' %}" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -76,6 +70,10 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
+                  <div class="container">
+                    <a href="{%url 'profile'%}"><img src="{{user.pic.url}}" width="200" height="200"></a>
+                  </div>
+
                     <li>
                         <a href="{%url 'browse_trainers'%}"><i class="fa fa-fw fa-dashboard"></i> Build You Team</a>
                     </li><br><br><br>
@@ -124,15 +122,10 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="{% static 'teams/js/jquery.js' %}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="js/plugins/morris/raphael.min.js"></script>
-    <script src="js/plugins/morris/morris.min.js"></script>
-    <script src="js/plugins/morris/morris-data.js"></script>
+    <script src="{% static 'teams/js/bootstrap.min.js'%}"></script>
 
 </body>
 

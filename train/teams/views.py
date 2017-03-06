@@ -6,7 +6,9 @@ from accounts.models import User
 @login_required
 def profile(request):
     user = request.user
-    return render(request, 'teams/profile.html', {'user':user})
+    peeps = user.group.all()
+    peeps = peeps.exclude(area="User")
+    return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps})
 @login_required
 def browse_trainers(request):
     trainers = User.objects.filter(area="TRAIN")
@@ -14,7 +16,18 @@ def browse_trainers(request):
 @login_required
 def person(request, username):
     p = get_object_or_404(User, username=username)
-    return render(request, 'teams/person.html', {'person':p})
+    user = request.user
+    if request.method == "POST":
+        if (user.group.all().filter(username=username)):
+            user.group.remove(User.objects.filter(username=username)[0])
+            print('need to delete relationship')
+        else:
+            user.group.add(User.objects.filter(username=username)[0])
+    if (user.group.all().filter(username=username)):
+        b = True
+    else:
+        b = False
+    return render(request, 'teams/person.html', {'person':p,'button':b})
 
 @login_required
 def browse_doctors(request):

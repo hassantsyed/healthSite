@@ -16,7 +16,14 @@ Assemble Your Team
 <div class="row">
   {% for n in nutritionists%}
   <div class="col-sm-4">
-  {{n.username}}
+    <div class="thumbnail">
+      <img src="{{n.pic.url}}" alt="pro">
+      <div class="caption">
+        <h3><a href="{%url 'person' n.username%}">{{n.username}}</a></h3>
+        <h5>Experience:</h5>
+        <p>{{n.experience}}</p>
+      </div>
+    </div>
   </div>
   {%endfor%}
 </div>

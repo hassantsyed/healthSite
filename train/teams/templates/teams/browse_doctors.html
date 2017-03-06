@@ -16,7 +16,14 @@ Assemble Your Team
 <div class="row">
   {% for d in doctors%}
   <div class="col-sm-4">
-  {{d.username}}
+    <div class="thumbnail">
+      <img src="{{d.pic.url}}" alt="pro">
+      <div class="caption">
+        <h3><a href="{%url 'person' d.username%}">{{d.username}}</a></h3>
+        <h5>Experience:</h5>
+        <p>{{d.experience}}</p>
+      </div>
+    </div>
   </div>
   {%endfor%}
 </div>
