@@ -13,7 +13,8 @@
                 {%if error%}
                 <h5>{{error}}</h5>
                 {%endif%}
-                <input class="form-control text-center" type="text" placeholder="Username" name="username"></input><br>
+                <input class="form-control text-center" type="text" placeholder="Username" name="username" id="username"></input><br>
+                <p class="text-center" id="status"></p>
                 <input class="form-control text-center" type="password" placeholder="Password" name="password1"></input><br>
                 <input class="form-control text-center" type="password" placeholder="Confirm Password" name="password2"></input><br>
                 <div class="text-center">
@@ -24,5 +25,19 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+$("#username").change(function(){
+  var potential = $(this).val();
+  $.ajax({
+    type:"GET",
+    url:"/accounts/checkUser",
+    data: {'username':potential},
+    success: function(data){
+      $("#status").text(data);
 
+    }
+  });
+});
+</script>
 </html>
