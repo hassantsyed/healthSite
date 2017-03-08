@@ -21,7 +21,7 @@ import teams.views
 from django.conf import settings
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('accounts.urls')),
+    url(r'^', include('teams.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^teams/', include('teams.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

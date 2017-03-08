@@ -38,3 +38,6 @@ def browse_doctors(request):
 def browse_nutritionists(request):
     nutritionists = User.objects.filter(area="NUTRITION")
     return render(request, 'teams/browse_nutritionists.html',{'nutritionists':nutritionists})
+
+def weight(request):
+    return render(request, "teams/weight.html")

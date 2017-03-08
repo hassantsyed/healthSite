@@ -24,4 +24,6 @@ urlpatterns = [
     url(r'^browse/nutritionists$', views.browse_nutritionists, name='browse_nutritionists'),
     url(r'^browse/doctors$', views.browse_doctors, name='browse_doctors'),
     url(r'^browse/(?P<username>[^/.]+)$', views.person, name='person'),
+    url(r'^$', views.profile, name='profile'),
+    url(r'^weight/$', views.weight, name='weight'),
 ]
