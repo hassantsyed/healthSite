@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
+from .models import User
+from django.http import JsonResponse
 
 # Create your views here.
 def loginview(request):
@@ -32,6 +34,14 @@ def signup(request):
             return render(request, 'accounts/signup.html', {'error': 'Passwords do not match'})
     else:
         return render(request, 'accounts/signup.html')
+
+def checkUser(request):
+    name = request.GET.get('username', None)
+    if(User.objects.filter(username=name).exists()):
+        return HttpResponse("taken")
+    else:
+        return HttpResponse("Available")
+
 
 @login_required
 def info(request):
