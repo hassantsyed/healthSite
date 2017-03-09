@@ -3,14 +3,17 @@
     Your Weight Tracker ({{peeps.count}})
 {%endblock%}
 {%block content%}
-<canvas id="myChart" width="400" height="200"></canvas>
+<input type="text" id="inAdd">
+<button class="btn btn-primary" id="addition">Add weight</button>
+<canvas id="myChart" width="600" height="200"></canvas>
+
 {%endblock%}
 {%block javascript%}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script>
 var canvas = document.getElementById('myChart');
 var data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: [2000, 2001, 2002, 2003, 2004, 2005, 2006],
     datasets: [
         {
             label: "Weight",
@@ -40,9 +43,18 @@ var option = {
   }
 };
 
-var myBarChart = Chart.Bar(canvas,{
+var myLineChart = Chart.Line(canvas,{
 	data:data,
   options:option
+});
+
+var button = document.getElementById("addition");
+button.addEventListener("click", function(){
+  var dataArray = myLineChart.data.datasets[0].data
+  var index = dataArray.length;
+  dataArray[index] = document.getElementById("inAdd").value;
+  myLineChart.data.labels[index] = "junily";
+  myLineChart.update();
 });
 </script>
 {%endblock%}
