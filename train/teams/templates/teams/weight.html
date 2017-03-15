@@ -4,7 +4,7 @@
 {%endblock%}
 {%block content%}
 <button class="btn btn-primary btn-danger" id="addition">Add weight</button>
-<input type="text" id="inAdd">
+<input type="number" id="inAdd">
 
 <canvas id="myChart" width="600" height="200"></canvas>
 
@@ -53,9 +53,18 @@ var button = document.getElementById("addition");
 button.addEventListener("click", function(){
   var dataArray = myLineChart.data.datasets[0].data
   var index = dataArray.length;
-  dataArray[index] = document.getElementById("inAdd").value;
+  var weight = document.getElementById("inAdd").value
+  if(weight == ""){
+    return;
+  }
+  dataArray[index] = weight;
   myLineChart.data.labels[index] = "junily";
   myLineChart.update();
+  makeModel();
 });
+function makeModel(){
+  alert("This is a test");
+}
+
 </script>
 {%endblock%}

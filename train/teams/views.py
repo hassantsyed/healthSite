@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from accounts.models import User
@@ -20,9 +20,10 @@ def person(request, username):
     if request.method == "POST":
         if (user.group.all().filter(username=username)):
             user.group.remove(User.objects.filter(username=username)[0])
-            print('need to delete relationship')
+            user.save()
         else:
             user.group.add(User.objects.filter(username=username)[0])
+            user.save()
     if (user.group.all().filter(username=username)):
         b = True
     else:
@@ -41,3 +42,7 @@ def browse_nutritionists(request):
 
 def weight(request):
     return render(request, "teams/weight.html")
+
+def addWeight(request):
+    user = request.user
+    return HttpResponse("test")
