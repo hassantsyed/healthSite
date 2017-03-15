@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from accounts.models import User
+from accounts.models import User, Weight
+from django.core import serializers
 # Create your views here.
 @login_required
 def profile(request):
@@ -41,8 +42,22 @@ def browse_nutritionists(request):
     return render(request, 'teams/browse_nutritionists.html',{'nutritionists':nutritionists})
 
 def weight(request):
-    return render(request, "teams/weight.html")
+    #json_serializer = serializers.get_serializer("json")()
+    #weight = json_serializer.serialize(Weight.objects.filter(person = request.user), ensure_ascii=False)
+    date = Weight.objects.filter(person = request.user)
+    weight = Weight.objects.filter(person = request.user)
+    dates = []
+    pounds = []
+    x = 1
+    for w in weight:
+        pounds.append(w.pds)
+        dates.append(x)
+        x = x+1
+    print(dates)
+    return render(request, "teams/weight.html", {'weight':pounds, 'date':dates})
 
 def addWeight(request):
     user = request.user
-    return HttpResponse("test")
+    amount = request.GET.get('weight')
+    weight = Weight.objects.create(pds = amount, person = user)
+    return HttpResponse("")

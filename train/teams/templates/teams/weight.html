@@ -7,14 +7,14 @@
 <input type="number" id="inAdd">
 
 <canvas id="myChart" width="600" height="200"></canvas>
-
 {%endblock%}
 {%block javascript%}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <script>
+
 var canvas = document.getElementById('myChart');
 var data = {
-    labels: [2000, 2001, 2002, 2003, 2004, 2005, 2006],
+    labels: {{date}},
     datasets: [
         {
             label: "Weight",
@@ -23,10 +23,11 @@ var data = {
             borderWidth: 2,
             hoverBackgroundColor: "rgba(255,99,132,0.4)",
             hoverBorderColor: "rgba(255,99,132,1)",
-            data: [65, 59, 20, 81, 56, 55, 40],
+            data: {{weight}},
         }
     ]
 };
+
 var option = {
 	scales: {
   	yAxes:[{
@@ -60,10 +61,14 @@ button.addEventListener("click", function(){
   dataArray[index] = weight;
   myLineChart.data.labels[index] = "junily";
   myLineChart.update();
-  makeModel();
+  makeModel(weight);
 });
-function makeModel(){
-  alert("This is a test");
+function makeModel(weight){
+  $.ajax({
+    type:"GET",
+    url:"/teams/addWeight",
+    data: {'weight':weight}
+  });
 }
 
 </script>
