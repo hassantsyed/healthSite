@@ -5,6 +5,7 @@
 {%block content%}
 <button class="btn btn-primary btn-danger" id="addition">Add weight</button>
 <input type="number" id="inAdd">
+<button class="btn btn-primary btn-danger" id="delete">Delete last entry</button>
 
 <canvas id="myChart" width="600" height="200"></canvas>
 {%endblock%}
@@ -50,16 +51,32 @@ var myLineChart = Chart.Line(canvas,{
   options:option
 });
 
+$("#delete").click(function(){
+
+  var dataArray = myLineChart.data.datasets[0].data;
+  dataArray.pop();
+  myLineChart.data.labels.pop();
+  myLineChart.update();
+  deleteModel();
+});
+function deleteModel(){
+  $.ajax({
+    type:"GET",
+    url:"/teams/deleteWeight"
+  });
+}
+
 var button = document.getElementById("addition");
 button.addEventListener("click", function(){
-  var dataArray = myLineChart.data.datasets[0].data
+  var dataArray = myLineChart.data.datasets[0].data;
   var index = dataArray.length;
-  var weight = document.getElementById("inAdd").value
+  var curr = index-1;
+  var weight = document.getElementById("inAdd").value;
   if(weight == ""){
     return;
   }
   dataArray[index] = weight;
-  myLineChart.data.labels[index] = "junily";
+  myLineChart.data.labels[index] = myLineChart.data.labels[curr]+1;
   myLineChart.update();
   makeModel(weight);
 });

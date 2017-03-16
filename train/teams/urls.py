@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^browse/(?P<username>[^/.]+)$', views.person, name='person'),
     url(r'^$', views.profile, name='profile'),
     url(r'^weight/$', views.weight, name='weight'),
-    url(r'^addWeight/$', views.addWeight,),
+    url(r'^addWeight/$', views.addWeight),
+    url(r'^deleteWeight/$', views.deleteWeight)
 ]
