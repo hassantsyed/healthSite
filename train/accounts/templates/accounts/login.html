@@ -9,11 +9,14 @@
         <div class="col-sm-2 col-sm-offset-5">
             <form method="POST" action="{%url 'login'%}">
                 {% csrf_token %}
+
                 <h1 class="text-center text-primary">Login</h1>
                 {%if error%}
                 <h5>{{error}}</h5>
                 {%endif%}
+                <p class="text-center">Username:</p>
                 <input class="form-control text-center" type="text" placeholder="Username" name='username'></input><br>
+                <p class="text-center">Password:</p>
                 <input class="form-control text-center" type="password" placeholder="Password" name='password'></input><br>
                 <div class="text-center">
                     <button class="btn btn-primary center">Login</button>

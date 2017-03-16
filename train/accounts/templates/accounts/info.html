@@ -18,11 +18,17 @@ btn-toolbar{
                 {%if error%}
                   <h5>{{error}}</h5>
                 {%endif%}
-
+                <p class="text-center">First Name:</p>
                 <input class="form-control text-center" type="text" value="{{user.first_name}}" name='first_name'></input><br>
+                <p class="text-center">Last Name:</p>
                 <input class="form-control text-center" type="text" value="{{user.last_name}}" name='last_name'></input><br>
+                <p class="text-center">Experience:</p>
                 <input class="form-control text-center" type="text" value="{{user.experience}}" name='experience'></input><br>
-                <input class="form-control text-center" type="text" value="{{user.location}}" name='location'></input><br>
+                <p class="text-center">State:</p>
+                <input class="form-control text-center" type="text" value="{{user.state}}" name='state'></input><br>
+                <p class="text-center">City:</p>
+                <input class="form-control text-center" type="text" value="{{user.city}}" name='city'></input><br>
+                <p class="text-center">What type of user are you?</p>
                 <select class="form-control text-center" name="selection">
                   <option class="text-center">User</option>
                   <option>Personal Trainer</option>

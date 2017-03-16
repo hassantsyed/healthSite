@@ -76,7 +76,11 @@ button.addEventListener("click", function(){
     return;
   }
   dataArray[index] = weight;
-  myLineChart.data.labels[index] = myLineChart.data.labels[curr]+1;
+  if(index==0){
+      myLineChart.data.labels[index] = 1;
+  }else{
+    myLineChart.data.labels[index] = myLineChart.data.labels[curr]+1;
+  }
   myLineChart.update();
   makeModel(weight);
 });

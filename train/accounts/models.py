@@ -4,7 +4,8 @@ from datetime import datetime
 # Create your models here.
 class User(AbstractUser):
     experience = models.TextField(max_length=300)
-    location = models.TextField(max_length=100)
+    state = models.TextField(max_length=100, default="")
+    city = models.TextField(max_length=100, default="")
     EXPERTISE = (('NUTRITION','Nutritionist'), ('TRAIN', 'Personal Trainer'), ('MD', 'Doctor'), ('User', 'User'))
     area = models.CharField(max_length=15, choices=EXPERTISE, default='User')
     group = models.ManyToManyField('self', blank=True)
