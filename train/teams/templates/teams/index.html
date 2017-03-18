@@ -78,13 +78,13 @@
                         <a href="{%url 'browse_trainers'%}"><i class="fa fa-fw fa-dashboard"></i> Build You Team</a>
                     </li><br><br><br>
                     <li>
-                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Weight Tracker</a>
+                        <a href="{%url 'weight'%}"><i class="fa fa-fw fa-bar-chart-o"></i> Weight Tracker</a>
                     </li><br><br><br>
                     <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> Nutrition Log</a>
+                        <a href="#"><i class="fa fa-fw fa-table"></i> Nutrition Log</a>
                     </li><br><br><br>
                     <li>
-                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Sleep Tracker</a>
+                        <a href="#"><i class="fa fa-fw fa-edit"></i> Sleep Tracker</a>
                     </li>
                     <li>
                         <a href="{%url 'info'%}"><i class="fa fa-fw fa-edit"></i> Personal Info</a>
@@ -99,19 +99,6 @@
             <div class="container-fluid">
                 {%block content%}
                 {%endblock%}
-                <h1>.</h1>
-                <h1>.</h1>
-                <h1>.</h1>
-                <h1>.</h1>
-                <h1>.</h1>
-                <h1>.</h1>
-                <h1>.</h1>
-                <h1>.</h1>
-                <h1>.</h1>
-                <h1>.</h1>
-
-
-
             </div>
             <!-- /.container-fluid -->
 
@@ -126,7 +113,8 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static 'teams/js/bootstrap.min.js'%}"></script>
-
+    {%block javascript%}
+    {%endblock%}
 </body>
 
 </html>

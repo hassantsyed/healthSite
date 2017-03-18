@@ -48,7 +48,8 @@ def info(request):
     if request.method =="POST":
         user = request.user
         user.experience = request.POST['experience']
-        user.location = request.POST['location']
+        user.city = request.POST['city']
+        user.state = request.POST['state']
         user.first_name = request.POST['first_name']
         user.last_name = request.POST['last_name']
         area = {'Personal Trainer':'TRAIN', 'Nutritionist':'NUTRITION' , 'Doctor': 'MD', 'User':'User'}
@@ -58,7 +59,7 @@ def info(request):
         user.save()
         return redirect ('profile')
     else:
-        return render(request, 'accounts/info.html', {'experience': request.user.experience, 'location':request.user.location})
+        return render(request, 'accounts/info.html', {'experience': request.user.experience})
 
 def logoutview(request):
     logout(request)

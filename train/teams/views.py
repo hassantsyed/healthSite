@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from accounts.models import User
+from accounts.models import User, Weight
+from django.core import serializers
+
 # Create your views here.
 @login_required
 def profile(request):
@@ -9,10 +11,12 @@ def profile(request):
     peeps = user.group.all()
     peeps = peeps.exclude(area="User")
     return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps})
+
 @login_required
 def browse_trainers(request):
     trainers = User.objects.filter(area="TRAIN")
     return render(request, 'teams/browse_trainers.html',{'trainers':trainers})
+
 @login_required
 def person(request, username):
     p = get_object_or_404(User, username=username)
@@ -20,9 +24,10 @@ def person(request, username):
     if request.method == "POST":
         if (user.group.all().filter(username=username)):
             user.group.remove(User.objects.filter(username=username)[0])
-            print('need to delete relationship')
+            user.save()
         else:
             user.group.add(User.objects.filter(username=username)[0])
+            user.save()
     if (user.group.all().filter(username=username)):
         b = True
     else:
@@ -38,3 +43,30 @@ def browse_doctors(request):
 def browse_nutritionists(request):
     nutritionists = User.objects.filter(area="NUTRITION")
     return render(request, 'teams/browse_nutritionists.html',{'nutritionists':nutritionists})
+
+def weight(request):
+    #json_serializer = serializers.get_serializer("json")()
+    #weight = json_serializer.serialize(Weight.objects.filter(person = request.user), ensure_ascii=False)
+    user = request.user
+    weight = Weight.objects.filter(person = user)
+    dates = []
+    pounds = []
+    x = 1
+    for w in weight:
+        pounds.append(w.pds)
+        dates.append(x)
+        x = x+1
+    return render(request, "teams/weight.html", {'weight':pounds, 'date':dates})
+
+def addWeight(request):
+    user = request.user
+    amount = request.GET.get('weight')
+    weight = Weight.objects.create(pds = amount, person = user)
+    return HttpResponse("")
+
+def deleteWeight(request):
+    user = request.user
+    weights = Weight.objects.filter(person = user)
+    last = weights[len(weights)-1]
+    last.delete()
+    return HttpResponse("")

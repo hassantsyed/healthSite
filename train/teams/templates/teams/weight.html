@@ -1,0 +1,96 @@
+{% extends "teams/index.html"%}
+{%block header%}
+    Your Weight Tracker ({{peeps.count}})
+{%endblock%}
+{%block content%}
+<button class="btn btn-primary btn-danger" id="addition">Add weight</button>
+<input type="number" id="inAdd">
+<button class="btn btn-primary btn-danger" id="delete">Delete last entry</button>
+
+<canvas id="myChart" width="600" height="200"></canvas>
+{%endblock%}
+{%block javascript%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script>
+
+var canvas = document.getElementById('myChart');
+var data = {
+    labels: {{date}},
+    datasets: [
+        {
+            label: "Weight",
+            backgroundColor: "rgba(255,99,132,0.2)",
+            borderColor: "rgba(255,99,132,1)",
+            borderWidth: 2,
+            hoverBackgroundColor: "rgba(255,99,132,0.4)",
+            hoverBorderColor: "rgba(255,99,132,1)",
+            data: {{weight}},
+        }
+    ]
+};
+
+var option = {
+	scales: {
+  	yAxes:[{
+    		stacked:true,
+        gridLines: {
+        	display:true,
+          color:"rgba(255,99,132,0.2)"
+        }
+    }],
+    xAxes:[{
+    		gridLines: {
+        	display:false
+        }
+    }]
+  }
+};
+
+var myLineChart = Chart.Line(canvas,{
+	data:data,
+  options:option
+});
+
+$("#delete").click(function(){
+
+  var dataArray = myLineChart.data.datasets[0].data;
+  dataArray.pop();
+  myLineChart.data.labels.pop();
+  myLineChart.update();
+  deleteModel();
+});
+function deleteModel(){
+  $.ajax({
+    type:"GET",
+    url:"/teams/deleteWeight"
+  });
+}
+
+var button = document.getElementById("addition");
+button.addEventListener("click", function(){
+  var dataArray = myLineChart.data.datasets[0].data;
+  var index = dataArray.length;
+  var curr = index-1;
+  var weight = document.getElementById("inAdd").value;
+  if(weight == ""){
+    return;
+  }
+  dataArray[index] = weight;
+  if(index==0){
+      myLineChart.data.labels[index] = 1;
+  }else{
+    myLineChart.data.labels[index] = myLineChart.data.labels[curr]+1;
+  }
+  myLineChart.update();
+  makeModel(weight);
+});
+function makeModel(weight){
+  $.ajax({
+    type:"GET",
+    url:"/teams/addWeight",
+    data: {'weight':weight}
+  });
+}
+
+</script>
+{%endblock%}
