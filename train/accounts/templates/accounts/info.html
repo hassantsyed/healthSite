@@ -15,9 +15,7 @@ btn-toolbar{
             <form method="POST" action="{%url 'info'%}">
                 {% csrf_token %}
                 <h1 class="text-center text-primary">Info</h1>
-                {%if error%}
-                  <h5>{{error}}</h5>
-                {%endif%}
+                <h3 class="text-danger text-center hidden" id="error"></h3>
                 <p class="text-center">First Name:</p>
                 <input class="form-control text-center" type="text" value="{{user.first_name}}" name='first_name'></input><br>
                 <p class="text-center">Last Name:</p>
@@ -43,5 +41,27 @@ btn-toolbar{
         </div>
     </div>
 </div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+
+  $("button").click(function(event){
+
+    var inputs = document.getElementsByTagName("input");
+    var count = 0;
+    for(var x = 1; x<inputs.length; x++){
+      if(inputs[x].value != ""){
+        count++;
+      }
+    }
+    if(count != inputs.length-1){
+      event.preventDefault();
+      if($("#error").hasClass("hidden")){
+        $("#error").toggleClass("hidden");
+      }
+      $("#error").html("Some information is missing");
+  }
+});
+
+</script>
 
 </html>
