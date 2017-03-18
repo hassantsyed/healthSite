@@ -3,14 +3,7 @@
     Your Health Team ({{peeps.count}})
 {%endblock%}
 {%block content%}
-{%if provider%}
-<div class="wrapper text-center">
-  <div class="btn-group" role="group" aria-label="Basic example">
-    <a href="{%url 'profile'%}" type="button" class="btn btn-danger btn-md active">Your Team</a>
-    <a href="{%url 'provider'%}" type="button" class="btn btn-danger btn-md">Your Clients</a>
-  </div>
-</div>
-{%endif%}
+
     <div class="row">
       <div class="col-sm-4">
         <h3 class="text-center">Personal Trainer</h3><hr>
