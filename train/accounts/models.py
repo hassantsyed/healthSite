@@ -15,3 +15,8 @@ class Weight(models.Model):
     pds = models.IntegerField()
     date = models.DateTimeField(default=datetime.now)
     person = models.ForeignKey(User)
+
+class Task(models.Model):
+    info = models.TextField(max_length=200)
+    giver = models.ForeignKey(User)
+    doer = models.ForeignKey(User)
