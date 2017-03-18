@@ -15,6 +15,7 @@ btn-toolbar{
             <form method="POST" action="{%url 'info'%}">
                 {% csrf_token %}
                 <h1 class="text-center text-primary">Info</h1>
+                <a href="{%url 'profile'%}" class="text-center">Home</a>
                 <h3 class="text-danger text-center hidden" id="error"></h3>
                 <p class="text-center">First Name:</p>
                 <input class="form-control text-center" type="text" value="{{user.first_name}}" name='first_name'></input><br>
@@ -59,8 +60,8 @@ btn-toolbar{
         $("#error").toggleClass("hidden");
       }
       $("#error").html("Some information is missing");
-  }
-});
+    }
+  });
 
 </script>
 
