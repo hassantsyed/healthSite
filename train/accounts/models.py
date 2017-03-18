@@ -18,5 +18,3 @@ class Weight(models.Model):
 
 class Task(models.Model):
     info = models.TextField(max_length=200)
-    giver = models.ForeignKey(User)
-    doer = models.ForeignKey(User)
