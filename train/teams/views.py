@@ -10,7 +10,17 @@ def profile(request):
     user = request.user
     peeps = user.group.all()
     peeps = peeps.exclude(area="User")
-    return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps})
+    if user.area == "User":
+        return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps, 'provider':False})
+    else:
+        return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps, 'provider':True})
+
+@login_required
+def provider(request):
+    user = request.user
+    peeps = user.group.all()
+    peeps = peeps.filter(area="User")
+    return render(request, 'teams/provider.html', {'user':user, 'peeps':peeps})
 
 @login_required
 def browse_trainers(request):
