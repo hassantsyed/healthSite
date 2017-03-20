@@ -17,8 +17,9 @@
         <h3 class="text-center">Personal Trainer</h3><hr>
         {%for t in tasks%}
           {% if t.giver.area == "TRAIN"%}
-            <p>{{t.info}}</p>
-            <p>from: <a href="{%url 'person' t.giver.username%}">{{t.giver}}</a></p>
+            <p class="text-left">{{t.info}}</p>
+            <p class="text-left">from: <a href="{%url 'person' t.giver.username%}">{{t.giver}}</a></p>
+            <div class="text-center"><button class="btn btn-warning text-center">Delete Task</button></div><hr>
           {%endif%}
         {%endfor%}
         {% for p in user.group.all %}
@@ -38,8 +39,9 @@
         <h3 class="text-center">Nutritionist</h3><hr>
         {%for t in tasks%}
           {% if t.giver.area == "NUTRITION"%}
-            <p>{{t.info}}</p>
-            <p>from: <a href="{%url 'person' t.giver.username%}">{{t.giver}}</a></p>
+            <p class="text-left">{{t.info}}</p>
+            <p class="text-left">from: <a href="{%url 'person' t.giver.username%}">{{t.giver}}</a></p>
+            <div class="text-center"><button class="btn btn-warning text-center">Delete Task</button></div><hr>
           {%endif%}
         {%endfor%}
         {% for p in user.group.all %}
@@ -59,8 +61,9 @@
         <h3 class="text-center">Doctor</h3><hr>
         {%for t in tasks%}
           {% if t.giver.area == "MD"%}
-            <p>{{t.info}}</p>
-            <p>from: <a href="{%url 'person' t.giver.username%}">{{t.giver}}</a></p>
+            <p class="text-left">{{t.info}}</p>
+            <p class="text-left">from: <a href="{%url 'person' t.giver.username%}">{{t.giver}}</a></p>
+            <div class="text-center"><button class="btn btn-warning text-center">Delete Task</button></div><hr>
           {%endif%}
         {%endfor%}
         {% for p in user.group.all %}
