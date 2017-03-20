@@ -18,12 +18,53 @@
             <img src="{{p.pic.url}}" alt="pro">
             <div class="caption">
               <h3><a href="{%url 'person' p.username%}">{{p.username}}</a></h3>
-              <h5>Experience:</h5>
-              <p>{{p.experience}}</p>
+              <button class="btn btn-danger" id="addTask" person="{{p.id}}">Add a Task</button>
+              <input type="text" id="taskInfo">
             </div>
           </div>
 
       </div>
       {% endfor %}
       </div>
+{%endblock%}
+
+{%block javascript%}
+  <script>
+
+    var buttons = document.getElementsByTagName("button");
+    var inputs = document.getElementsByTagName("input");
+    for(var x = 0; x<buttons.length; x++){
+      inputs[x].setAttribute("order", x);
+      buttons[x].setAttribute("order", x);
+      buttons[x].addEventListener("click", function(){
+        getTask(this);
+      })
+    }
+
+    function getTask(btn){
+      var order = parseInt(btn.getAttribute("order"));
+      var p = parseInt(btn.getAttribute("person"));
+      var input;
+      for(var x = 0; x<inputs.length; x++){
+        if(inputs[x].getAttribute("order") == order){
+          input = inputs[x].value;
+        }
+      }
+      if(input==""){
+        console.log("no input given");
+      }else{
+        makeTask(input, p);
+      }
+    }
+
+    function makeTask(input, person){
+      alert(person);
+      $.ajax({
+        type:"GET",
+        url:"/teams/addTask",
+        data: {'info':input, 'person':person}
+      });
+    }
+
+  </script>
 {%endblock%}

@@ -28,5 +28,7 @@ urlpatterns = [
     url(r'^$', views.profile, name='profile'),
     url(r'^weight/$', views.weight, name='weight'),
     url(r'^addWeight/$', views.addWeight),
-    url(r'^deleteWeight/$', views.deleteWeight)
+    url(r'^deleteWeight/$', views.deleteWeight),
+    url(r'^addTask/$', views.addTask),
+    url(r'^deleteTask/$', views.deleteTask)
 ]

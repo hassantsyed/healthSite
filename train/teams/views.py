@@ -81,3 +81,14 @@ def deleteWeight(request):
     last = weights[len(weights)-1]
     last.delete()
     return HttpResponse("")
+
+def addTask(request):
+    provider = request.user
+    taker = User.objects.filter(id=request.GET.get("person"))
+    stuff = request.GET.get("info")
+    print(stuff)
+    task = Task.objects.create(info = stuff, giver=provider, doer=taker[0])
+    return HttpResponse("")
+
+def deleteTask(request):
+    return HttpResponse("")
