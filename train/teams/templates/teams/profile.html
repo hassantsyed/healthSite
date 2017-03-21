@@ -17,9 +17,11 @@
         <h3 class="text-center">Personal Trainer</h3><hr>
         {%for t in tasks%}
           {% if t.giver.area == "TRAIN"%}
+          <div class="text-center">
             <p class="text-left">{{t.info}}</p>
             <p class="text-left">from: <a href="{%url 'person' t.giver.username%}">{{t.giver}}</a></p>
-            <div class="text-center"><button class="btn btn-warning text-center">Delete Task</button></div><hr>
+            <button class="btn btn-warning text-center" data={{t.id}}>Delete Task</button><hr>
+          </div>
           {%endif%}
         {%endfor%}
         {% for p in user.group.all %}
@@ -39,9 +41,11 @@
         <h3 class="text-center">Nutritionist</h3><hr>
         {%for t in tasks%}
           {% if t.giver.area == "NUTRITION"%}
+          <div class="text-center">
             <p class="text-left">{{t.info}}</p>
             <p class="text-left">from: <a href="{%url 'person' t.giver.username%}">{{t.giver}}</a></p>
-            <div class="text-center"><button class="btn btn-warning text-center">Delete Task</button></div><hr>
+            <button class="btn btn-warning text-center" data={{t.id}}>Delete Task</button><hr>
+          </div>
           {%endif%}
         {%endfor%}
         {% for p in user.group.all %}
@@ -61,9 +65,11 @@
         <h3 class="text-center">Doctor</h3><hr>
         {%for t in tasks%}
           {% if t.giver.area == "MD"%}
+          <div class="text-center">
             <p class="text-left">{{t.info}}</p>
             <p class="text-left">from: <a href="{%url 'person' t.giver.username%}">{{t.giver}}</a></p>
-            <div class="text-center"><button class="btn btn-warning text-center">Delete Task</button></div><hr>
+            <button class="btn btn-warning text-center" data={{t.id}}>Delete Task</button><hr>
+          </div>
           {%endif%}
         {%endfor%}
         {% for p in user.group.all %}
@@ -80,4 +86,30 @@
         {% endfor %}
       </div>
     </div>
+{%endblock%}
+
+{%block javascript%}
+<script>
+  var buttons = document.getElementsByTagName("Button");
+  for(var x=0; x<buttons.length; x++){
+    b = buttons[x];
+    b.addEventListener("click", function(){
+      updatePage(this);
+    });
+  }
+  function updatePage(btn){
+    var d = btn.parentNode;
+    btn.parentNode.remove(btn);
+    deleteTask(btn.getAttribute("data"));
+  }
+  function deleteTask(id){
+    var key = parseInt(id);
+    $.ajax({
+      type:"GET",
+      url:"/teams/deleteTask",
+      data: {'key':key}
+    });
+  }
+</script>
+
 {%endblock%}
