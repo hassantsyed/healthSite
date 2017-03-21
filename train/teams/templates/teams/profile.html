@@ -1,12 +1,29 @@
 {% extends "teams/index.html"%}
 {%block header%}
-    Your Health Team ({{peeps.count}})
+    Your Health Team ({{peeps.count}}), Tasks ({{tasks.count}})
 {%endblock%}
 {%block content%}
 
+{%if provider%}
+<div class="wrapper text-center">
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <a href="{%url 'profile'%}" type="button" class="btn btn-danger btn-md active">Your Team</a>
+    <a href="{%url 'provider'%}" type="button" class="btn btn-danger btn-md">Your Clients</a>
+  </div>
+</div>
+{%endif%}
     <div class="row">
       <div class="col-sm-4">
         <h3 class="text-center">Personal Trainer</h3><hr>
+        {%for t in tasks%}
+          {% if t.giver.area == "TRAIN"%}
+          <div class="text-center">
+            <p class="text-left">{{t.info}}</p>
+            <p class="text-left">from: <a href="{%url 'person' t.giver.username%}">{{t.giver}}</a></p>
+            <button class="btn btn-warning text-center" data={{t.id}}>Delete Task</button><hr>
+          </div>
+          {%endif%}
+        {%endfor%}
         {% for p in user.group.all %}
           {%if p.area == "TRAIN"%}
           <div class="thumbnail">
@@ -22,6 +39,15 @@
       </div>
       <div class="col-sm-4">
         <h3 class="text-center">Nutritionist</h3><hr>
+        {%for t in tasks%}
+          {% if t.giver.area == "NUTRITION"%}
+          <div class="text-center">
+            <p class="text-left">{{t.info}}</p>
+            <p class="text-left">from: <a href="{%url 'person' t.giver.username%}">{{t.giver}}</a></p>
+            <button class="btn btn-warning text-center" data={{t.id}}>Delete Task</button><hr>
+          </div>
+          {%endif%}
+        {%endfor%}
         {% for p in user.group.all %}
           {%if p.area == "NUTRITION"%}
           <div class="thumbnail">
@@ -37,6 +63,15 @@
       </div>
       <div class="col-sm-4">
         <h3 class="text-center">Doctor</h3><hr>
+        {%for t in tasks%}
+          {% if t.giver.area == "MD"%}
+          <div class="text-center">
+            <p class="text-left">{{t.info}}</p>
+            <p class="text-left">from: <a href="{%url 'person' t.giver.username%}">{{t.giver}}</a></p>
+            <button class="btn btn-warning text-center" data={{t.id}}>Delete Task</button><hr>
+          </div>
+          {%endif%}
+        {%endfor%}
         {% for p in user.group.all %}
           {%if p.area == "MD"%}
           <div class="thumbnail">
@@ -51,4 +86,30 @@
         {% endfor %}
       </div>
     </div>
+{%endblock%}
+
+{%block javascript%}
+<script>
+  var buttons = document.getElementsByTagName("Button");
+  for(var x=0; x<buttons.length; x++){
+    b = buttons[x];
+    b.addEventListener("click", function(){
+      updatePage(this);
+    });
+  }
+  function updatePage(btn){
+    var d = btn.parentNode;
+    btn.parentNode.remove(btn);
+    deleteTask(btn.getAttribute("data"));
+  }
+  function deleteTask(id){
+    var key = parseInt(id);
+    $.ajax({
+      type:"GET",
+      url:"/teams/deleteTask",
+      data: {'key':key}
+    });
+  }
+</script>
+
 {%endblock%}

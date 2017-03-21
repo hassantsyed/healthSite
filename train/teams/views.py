@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from accounts.models import User, Weight
+from accounts.models import User, Weight, Task
 from django.core import serializers
 
 # Create your views here.
@@ -10,7 +10,18 @@ def profile(request):
     user = request.user
     peeps = user.group.all()
     peeps = peeps.exclude(area="User")
-    return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps})
+    tasks = Task.objects.filter(doer=user)
+    if user.area == "User":
+        return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps, 'provider':False, 'tasks': tasks})
+    else:
+        return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps, 'provider':True, 'tasks': tasks})
+
+@login_required
+def provider(request):
+    user = request.user
+    peeps = user.group.all()
+    peeps = peeps.filter(area="User")
+    return render(request, 'teams/provider.html', {'user':user, 'peeps':peeps})
 
 @login_required
 def browse_trainers(request):
@@ -69,4 +80,17 @@ def deleteWeight(request):
     weights = Weight.objects.filter(person = user)
     last = weights[len(weights)-1]
     last.delete()
+    return HttpResponse("")
+
+def addTask(request):
+    provider = request.user
+    taker = User.objects.filter(id=request.GET.get("person"))
+    stuff = request.GET.get("info")
+    task = Task.objects.create(info = stuff, giver=provider, doer=taker[0])
+    return HttpResponse("")
+
+def deleteTask(request):
+    taker = request.user
+    t = Task.objects.filter(id = request.GET.get('key'))
+    t[0].delete()
     return HttpResponse("")
