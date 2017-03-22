@@ -30,5 +30,6 @@ urlpatterns = [
     url(r'^addWeight/$', views.addWeight),
     url(r'^deleteWeight/$', views.deleteWeight),
     url(r'^addTask/$', views.addTask),
-    url(r'^deleteTask/$', views.deleteTask)
+    url(r'^deleteTask/$', views.deleteTask),
+    url(r'^see/(?P<username>[^/.]+)$', views.seeData, name='seeData'),
 ]

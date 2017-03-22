@@ -4,13 +4,32 @@
 
 {%endblock%}
 {%block content%}
-  <form method="POST" action="{%url 'person' person.username%}">
-    {% csrf_token %}
-    {%if button is False%}
-      <button class="btn btn-primary">Recruit</button>
-    {%else%}
-      <button class="btn btn-danger">Drop</button>
-    {%endif%}
-  </form>
-  {{person.experience}}
+<div class="container-fluid">
+  <div class="col-sm-4">
+    <h1>{{person.first_name}} {{person.last_name}}</h1>
+
+  </div>
+  <div class="col-sm-4 text-center">
+    <img src="{{person.pic.url}}" height=100 width=100>
+  </div>
+  <div class="col-sm-4 text-right">
+    <form method="POST" action="{%url 'person' person.username%}">
+      {% csrf_token %}
+      {%if button is False%}
+        <button class="btn btn-primary">Recruit</button>
+      {%else%}
+        <button class="btn btn-danger">Drop</button>
+      {%endif%}
+    </form>
+  </div>
+
+
+</div>
+
+  <hr>
+  <h2>Bio:</h2>
+  <h2>Experience:</h2>
+  <p>{{person.experience}}</p>
+  <h2>Location:</h2>
+  <p>{{person.city}}, {{person.state}}</p>
 {%endblock%}

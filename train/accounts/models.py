@@ -12,7 +12,7 @@ class User(AbstractUser):
     pic = models.ImageField(upload_to='media/', default='media/noprofile.png')
 
 class Weight(models.Model):
-    pds = models.IntegerField()
+    pds = models.FloatField()
     date = models.DateTimeField(default=datetime.now)
     person = models.ForeignKey(User)
 

@@ -94,3 +94,6 @@ def deleteTask(request):
     t = Task.objects.filter(id = request.GET.get('key'))
     t[0].delete()
     return HttpResponse("")
+
+def seeData(request, username):
+    return HttpResponse("Coming soon")
