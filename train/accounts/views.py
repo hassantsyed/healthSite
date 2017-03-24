@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from .models import User
 from django.http import JsonResponse
+from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 def loginview(request):
@@ -46,6 +47,9 @@ def checkUser(request):
 @login_required
 def info(request):
     if request.method =="POST":
+        myfile = request.FILES.get("proPic")
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
         user = request.user
         user.experience = request.POST['experience']
         user.city = request.POST['city']
@@ -54,6 +58,7 @@ def info(request):
         user.last_name = request.POST['last_name']
         area = {'Personal Trainer':'TRAIN', 'Nutritionist':'NUTRITION' , 'Doctor': 'MD', 'User':'User'}
         temp = request.POST['selection']
+        user.pic = filename
         #print(area[temp])
         user.area = area[temp]
         user.save()

@@ -12,7 +12,7 @@ btn-toolbar{
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2 col-sm-offset-5">
-            <form method="POST" action="{%url 'info'%}">
+            <form method="POST" action="{%url 'info'%}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h1 class="text-center text-primary">Info</h1>
                 <a href="{%url 'profile'%}" class="text-center">Home</a>
@@ -27,6 +27,8 @@ btn-toolbar{
                 <input class="form-control text-center" type="text" value="{{user.state}}" name='state'></input><br>
                 <p class="text-center">City:</p>
                 <input class="form-control text-center" type="text" value="{{user.city}}" name='city'></input><br>
+                <p class="text-center">Profile Picture:</p>
+                <input class="form-control" type="file" name="proPic"></input><br>
                 <p class="text-center">What type of user are you?</p>
                 <select class="form-control text-center" name="selection">
                   <option class="text-center">User</option>
