@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from accounts.models import User, Weight, Task
+from accounts.models import User, Weight, Task, JoinTeam
 from django.core import serializers
 
 # Create your views here.
@@ -14,7 +14,8 @@ def profile(request):
     if user.area == "User":
         return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps, 'provider':False, 'tasks': tasks})
     else:
-        return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps, 'provider':True, 'tasks': tasks})
+        reqs = JoinTeam.objects.all()
+        return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps, 'provider':True, 'tasks': tasks, 'reqs':reqs})
 
 @login_required
 def provider(request):
