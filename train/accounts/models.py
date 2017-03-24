@@ -10,6 +10,7 @@ class User(AbstractUser):
     area = models.CharField(max_length=15, choices=EXPERTISE, default='User')
     group = models.ManyToManyField('self', blank=True)
     pic = models.ImageField(upload_to='media/', default='media/noprofile.png')
+    bio = models.TextField(max_length=500, blank=True)
 
 class Weight(models.Model):
     pds = models.IntegerField()

@@ -47,18 +47,21 @@ def checkUser(request):
 @login_required
 def info(request):
     if request.method =="POST":
-        myfile = request.FILES.get("proPic")
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
+
         user = request.user
         user.experience = request.POST['experience']
         user.city = request.POST['city']
         user.state = request.POST['state']
         user.first_name = request.POST['first_name']
+        user.bio = request.POST['bio']
         user.last_name = request.POST['last_name']
         area = {'Personal Trainer':'TRAIN', 'Nutritionist':'NUTRITION' , 'Doctor': 'MD', 'User':'User'}
         temp = request.POST['selection']
-        user.pic = filename
+        if request.FILES.get("proPic"):
+            myfile = request.FILES.get("proPic")
+            fs = FileSystemStorage()
+            filename = fs.save(myfile.name, myfile)
+            user.pic = filename        
         #print(area[temp])
         user.area = area[temp]
         user.save()

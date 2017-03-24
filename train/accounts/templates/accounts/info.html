@@ -21,6 +21,8 @@ btn-toolbar{
                 <input class="form-control text-center" type="text" value="{{user.first_name}}" name='first_name'></input><br>
                 <p class="text-center">Last Name:</p>
                 <input class="form-control text-center" type="text" value="{{user.last_name}}" name='last_name'></input><br>
+                <p class="text-center">Bio:</p>
+                <input class="form-control text-center" type="text" value="{{user.bio}}" name='bio'></input><br>
                 <p class="text-center">Experience:</p>
                 <input class="form-control text-center" type="text" value="{{user.experience}}" name='experience'></input><br>
                 <p class="text-center">State:</p>
@@ -28,10 +30,13 @@ btn-toolbar{
                 <p class="text-center">City:</p>
                 <input class="form-control text-center" type="text" value="{{user.city}}" name='city'></input><br>
                 <p class="text-center">Profile Picture:</p>
-                <input class="form-control" type="file" name="proPic"></input><br>
+                {%if user.pic != "media/noprofile.png"%}
+                <p>Currently selected: {{user.pic}}</p>
+                {%endif%}
+                <input class="form-control" type="file" name="proPic" id="proPic"></input><br>
                 <p class="text-center">What type of user are you?</p>
-                <select class="form-control text-center" name="selection">
-                  <option class="text-center">User</option>
+                <select class="form-control text-center" name="selection" id="selection">
+                  <option>User</option>
                   <option>Personal Trainer</option>
                   <option>Nutritionist</option>
                   <option>Doctor</option>
@@ -46,10 +51,31 @@ btn-toolbar{
 </div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+  $(document).ready(function(){
+    var expertise = "{{user.area}}";
+    if(expertise == "MD"){
+      document.getElementById("selection").selectedIndex = 3;
+    }else if (expertise == "TRAIN") {
+      document.getElementById("selection").selectedIndex = 1;
+    }else if (expertise == "User") {
+      document.getElementById("selection").selectedIndex = 0;
+    }else if (expertise == "NUTRITION") {
+      document.getElementById("selection").selectedIndex = 2;
+    }
+  });
+  function getIns(){
+    var a = document.getElementsByTagName("input");
+    var b = [];
+    for(var x = 0; x<a.length; x++){
+      if(a[x].getAttribute("id")!="proPic"){
+        b.push(a[x]);
+      }
+    }
+    return b;
+  }
 
   $("button").click(function(event){
-
-    var inputs = document.getElementsByTagName("input");
+    var inputs = getIns();
     var count = 0;
     for(var x = 1; x<inputs.length; x++){
       if(inputs[x].value != ""){
