@@ -15,6 +15,7 @@ def profile(request):
         return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps, 'provider':False, 'tasks': tasks})
     else:
         reqs = JoinTeam.objects.all()
+        reqs = reqs.filter(doer = user)
         return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps, 'provider':True, 'tasks': tasks, 'reqs':reqs})
 
 @login_required
@@ -34,16 +35,21 @@ def person(request, username):
     p = get_object_or_404(User, username=username)
     user = request.user
     if request.method == "POST":
+        #can keep remove the same
         if (user.group.all().filter(username=username)):
             user.group.remove(User.objects.filter(username=username)[0])
             user.save()
         else:
-            user.group.add(User.objects.filter(username=username)[0])
-            user.save()
+            #sending add request instead of autoadd
+            j = JoinTeam.objects.create(giver = user, doer = p)
+            #user.group.add(User.objects.filter(username=username)[0])
+            #user.save()
     if (user.group.all().filter(username=username)):
-        b = True
+        b = 0
+    elif (JoinTeam.objects.filter(giver=user, doer = p)):
+        b = 1
     else:
-        b = False
+        b = 2
     return render(request, 'teams/person.html', {'person':p,'button':b})
 
 @login_required
@@ -95,3 +101,19 @@ def deleteTask(request):
     t = Task.objects.filter(id = request.GET.get('key'))
     t[0].delete()
     return HttpResponse("")
+
+def acceptRequest(request):
+    user = request.user
+    username = request.GET.get('username')
+    deleteReq(request.GET.get('key'))
+    user.group.add(User.objects.filter(username=username)[0])
+    user.save()
+    return HttpResponse("")
+
+def denyRequest(request):
+    deleteReq(request.GET.get('key'))
+    return HttpResponse("")
+
+def deleteReq(key):
+    j = JoinTeam.objects.filter(id = key)
+    j[0].delete()

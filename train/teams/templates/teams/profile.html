@@ -11,12 +11,14 @@
     <a href="{%url 'provider'%}" type="button" class="btn btn-danger btn-md">Your Clients</a>
   </div>
 </div>
-<h3>Pending Requests</h3>
+{%if reqs.count > 0 %}
+<h3>Pending Requests</h3><hr>
 {%for r in reqs%}
   <p>{{r.giver}} wants you to join their team!</p>
-  <button class="btn btn-danger" id="accept">Accept</button>
-  <button class="btn btn-warning" id="decline">Decline</button>
+  <a class="btn btn-danger" id="accept">Accept</a>
+  <a class="btn btn-warning" id="decline">Decline</a>
 {%endfor%}
+{%endif%}
 {%endif%}
     <div class="row">
       <div class="col-sm-4">
@@ -116,6 +118,10 @@
       data: {'key':key}
     });
   }
+</script>
+<script>
+  var links = document.getElementsByTagName("a");
+
 </script>
 
 {%endblock%}
