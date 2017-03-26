@@ -2,15 +2,20 @@
 {%block header%}
     Your Health Team ({{peeps.count}})
 {%endblock%}
-{%block content%}
-<div class="wrapper text-center">
-    <div class="btn-group" role="group" aria-label="Basic example">
-      <a href="{%url 'profile'%}" type="button" class="btn btn-danger btn-md">Your Team</a>
-      <a href="{%url 'provider'%}" type="button" class="btn btn-danger btn-md active">Your Clients</a>
-    </div>
-  </div>
-  <h3 class="text-center">Clients</h3><hr>
 
+{%block content%}
+{%if reqs.count > 0 %}
+  <h2>Pending Requests</h2><hr>
+  {%for r in reqs%}
+    <div class="container-fluid">
+    <p>{{r.giver.first_name}} is recruiting you for their health team!</p>
+    <button class="btn btn-danger recruit" name="button" data="{{r.giver.id}}" key="{{r.id}}">Accept</button>
+    <button class="btn btn-danger recruit" name="button" data="{{r.giver.id}}" key="{{r.id}}">Decline</button><hr>
+    </div>
+  {%endfor%}
+{%endif%}
+<div class="wrapper text-center">
+  <h2 class="text-center">Clients</h2><hr>
     <div class="row">
       {% for p in peeps %}
       <div class="col-sm-4">
@@ -18,20 +23,20 @@
             <img src="{{p.pic.url}}" alt="pro">
             <div class="caption">
               <h3><a href="{%url 'person' p.username%}">{{p.username}}</a></h3>
-              <button class="btn btn-danger" id="addTask" person="{{p.id}}">Add a Task</button>
+              <button class="btn btn-danger addTask" id="addTask" person="{{p.id}}">Add a Task</button>
               <input type="text" id="taskInfo">
             </div>
           </div>
-
       </div>
       {% endfor %}
       </div>
+    </div>
 {%endblock%}
 
 {%block javascript%}
   <script>
 
-    var buttons = document.getElementsByTagName("button");
+    var buttons = document.getElementsByClassName("addTask");
     var inputs = document.getElementsByTagName("input");
     for(var x = 0; x<buttons.length; x++){
       inputs[x].setAttribute("order", x);
@@ -64,6 +69,42 @@
         url:"/teams/addTask",
         data: {'info':input, 'person':person}
       });
+    }
+
+  </script>
+  <script>
+    var btns = document.getElementsByClassName("recruit");
+    for(var x = 0; x<btns.length; x++){
+      btns[x].setAttribute("order",x);
+      if(x%2==0){
+        btns[x].addEventListener("click", function(){
+          accept(this);
+        });
+      }else{
+        btns[x].addEventListener("click", function(){
+          decline(this);
+        });
+      }
+    }
+    function accept(b){
+      $.ajax({
+        type:"GET",
+        url:"/teams/addTeam",
+        data: {'key':b.getAttribute("key"), 'id':b.getAttribute("data")}
+      });
+      cleanPage(b);
+    }
+    function decline(b){
+      $.ajax({
+        type:"GET",
+        url:"/teams/denyTeam",
+        data: {'key':b.getAttribute("key"), 'id':b.getAttribute("data")}
+      });
+      cleanPage(b);
+    }
+    function cleanPage(b){
+      p = b.parentNode;
+      p.remove(b);
     }
 
   </script>

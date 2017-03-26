@@ -4,22 +4,6 @@
 {%endblock%}
 {%block content%}
 
-{%if provider%}
-<div class="wrapper text-center">
-  <div class="btn-group" role="group" aria-label="Basic example">
-    <a href="{%url 'profile'%}" type="button" class="btn btn-danger btn-md active">Your Team</a>
-    <a href="{%url 'provider'%}" type="button" class="btn btn-danger btn-md">Your Clients</a>
-  </div>
-</div>
-{%if reqs.count > 0 %}
-<h3>Pending Requests</h3><hr>
-{%for r in reqs%}
-  <p>{{r.giver}} wants you to join their team!</p>
-  <a class="btn btn-danger" id="accept" data="{{r.id}}">Accept</a>
-  <a class="btn btn-warning" id="decline" data="{{r.id}}">Decline</a>
-{%endfor%}
-{%endif%}
-{%endif%}
     <div class="row">
       <div class="col-sm-4">
         <h3 class="text-center">Personal Trainer</h3><hr>

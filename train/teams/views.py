@@ -8,22 +8,16 @@ from django.core import serializers
 @login_required
 def profile(request):
     user = request.user
-    peeps = user.group.all()
-    peeps = peeps.exclude(area="User")
-    tasks = Task.objects.filter(doer=user)
     if user.area == "User":
+        peeps = user.group.all()
+        tasks = Task.objects.filter(doer=user)
         return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps, 'provider':False, 'tasks': tasks})
     else:
         reqs = JoinTeam.objects.all()
         reqs = reqs.filter(doer = user)
-        return render(request, 'teams/profile.html', {'user':user, 'peeps':peeps, 'provider':True, 'tasks': tasks, 'reqs':reqs})
+        peeps = user.group.all()
+        return render(request, 'teams/provider.html', {'user':user, 'peeps':peeps, 'reqs':reqs})
 
-@login_required
-def provider(request):
-    user = request.user
-    peeps = user.group.all()
-    peeps = peeps.filter(area="User")
-    return render(request, 'teams/provider.html', {'user':user, 'peeps':peeps})
 
 @login_required
 def browse_trainers(request):
@@ -104,9 +98,9 @@ def deleteTask(request):
 
 def acceptRequest(request):
     user = request.user
-    username = request.GET.get('username')
+    requestor = request.GET.get('id')
     deleteReq(request.GET.get('key'))
-    user.group.add(User.objects.filter(username=username)[0])
+    user.group.add(User.objects.filter(id=requestor)[0])
     user.save()
     return HttpResponse("")
 

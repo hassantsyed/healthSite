@@ -19,7 +19,6 @@ from . import views
 
 urlpatterns = [
     url(r'^profile/$', views.profile, name='profile'),
-    url(r'^provider/$', views.provider, name='provider'),
     url(r'^browse/$', views.browse_trainers, name='browse_trainers'),
     url(r'^browse/trainers$', views.browse_trainers, name='browse_trainers'),
     url(r'^browse/nutritionists$', views.browse_nutritionists, name='browse_nutritionists'),
@@ -30,5 +29,7 @@ urlpatterns = [
     url(r'^addWeight/$', views.addWeight),
     url(r'^deleteWeight/$', views.deleteWeight),
     url(r'^addTask/$', views.addTask),
-    url(r'^deleteTask/$', views.deleteTask)
+    url(r'^deleteTask/$', views.deleteTask),
+    url(r'^addTeam/$', views.acceptRequest),
+    url(r'^denyTeam/$', views.denyRequest)
 ]
