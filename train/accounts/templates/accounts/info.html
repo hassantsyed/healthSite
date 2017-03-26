@@ -15,7 +15,6 @@ btn-toolbar{
             <form method="POST" action="{%url 'info'%}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h1 class="text-center text-primary">Info</h1>
-                <a href="{%url 'profile'%}" class="text-center">Home</a>
                 <h3 class="text-danger text-center hidden" id="error"></h3>
                 <p class="text-center">First Name:</p>
                 <input class="form-control text-center" type="text" value="{{user.first_name}}" name='first_name'></input><br>
@@ -34,13 +33,7 @@ btn-toolbar{
                 <p>Currently selected: {{user.pic}}</p>
                 {%endif%}
                 <input class="form-control" type="file" name="proPic" id="proPic"></input><br>
-                <p class="text-center">What type of user are you?</p>
-                <select class="form-control text-center" name="selection" id="selection">
-                  <option>User</option>
-                  <option>Personal Trainer</option>
-                  <option>Nutritionist</option>
-                  <option>Doctor</option>
-                </select><br>
+
 
                 <div class="text-center">
                     <button class="btn btn-primary center">Submit</button>
@@ -51,18 +44,7 @@ btn-toolbar{
 </div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-  $(document).ready(function(){
-    var expertise = "{{user.area}}";
-    if(expertise == "MD"){
-      document.getElementById("selection").selectedIndex = 3;
-    }else if (expertise == "TRAIN") {
-      document.getElementById("selection").selectedIndex = 1;
-    }else if (expertise == "User") {
-      document.getElementById("selection").selectedIndex = 0;
-    }else if (expertise == "NUTRITION") {
-      document.getElementById("selection").selectedIndex = 2;
-    }
-  });
+
   function getIns(){
     var a = document.getElementsByTagName("input");
     var b = [];

@@ -1,4 +1,4 @@
-{% extends "teams/index.html"%}
+{% extends "teams/pindex.html"%}
 {%block header%}
     Your Health Team ({{peeps.count}})
 {%endblock%}
@@ -22,7 +22,7 @@
           <div class="thumbnail">
             <img src="{{p.pic.url}}" alt="pro">
             <div class="caption">
-              <h3><a href="{%url 'person' p.username%}">{{p.username}}</a></h3>
+              <h3><a href="{%url 'train' p.username%}">{{p.first_name}}</a></h3>
               <button class="btn btn-danger addTask" id="addTask" person="{{p.id}}">Add a Task</button>
               <input type="text" id="taskInfo">
             </div>

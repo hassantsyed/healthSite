@@ -27,6 +27,11 @@ def signup(request):
                 return render(request, 'accounts/signup.html', {'error': 'Username is taken'})
             except User.DoesNotExist:
                 user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
+                area = {'Personal Trainer':'TRAIN', 'Nutritionist':'NUTRITION' , 'Doctor': 'MD', 'User':'User'}
+                temp = request.POST['selection']
+                user.area = area[temp]
+                user.save()
+                print(user.area)
                 #user.experience = request.POST['description']
                 login(request,user)
                 #user.save()
@@ -55,15 +60,13 @@ def info(request):
         user.first_name = request.POST['first_name']
         user.bio = request.POST['bio']
         user.last_name = request.POST['last_name']
-        area = {'Personal Trainer':'TRAIN', 'Nutritionist':'NUTRITION' , 'Doctor': 'MD', 'User':'User'}
-        temp = request.POST['selection']
         if request.FILES.get("proPic"):
             myfile = request.FILES.get("proPic")
             fs = FileSystemStorage()
             filename = fs.save(myfile.name, myfile)
-            user.pic = filename        
+            user.pic = filename
         #print(area[temp])
-        user.area = area[temp]
+
         user.save()
         return redirect ('profile')
     else:

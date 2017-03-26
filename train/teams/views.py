@@ -46,6 +46,9 @@ def person(request, username):
         b = 2
     return render(request, 'teams/person.html', {'person':p,'button':b})
 
+def train(request, username):
+    return HttpResponse("Coming Soon")
+
 @login_required
 def browse_doctors(request):
     doctors = User.objects.filter(area="MD")
@@ -102,11 +105,11 @@ def acceptRequest(request):
     deleteReq(request.GET.get('key'))
     user.group.add(User.objects.filter(id=requestor)[0])
     user.save()
-    return HttpResponse("")
+    return profile(request)
 
 def denyRequest(request):
     deleteReq(request.GET.get('key'))
-    return HttpResponse("")
+    return profile(request)
 
 def deleteReq(key):
     j = JoinTeam.objects.filter(id = key)
