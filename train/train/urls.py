@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^', include('teams.urls')),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^teams/', include('teams.urls')),
+    url(r'^messages/', include('postman.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
