@@ -47,7 +47,10 @@ def person(request, username):
     return render(request, 'teams/person.html', {'person':p,'button':b})
 
 def train(request, username):
-    return HttpResponse("Coming Soon")
+    user = request.user
+    peeps = user.group.all()
+    p = peeps.filter(username = username)[0]
+    return render(request, 'teams/train.html', {'peeps':peeps, 'p':p})
 
 @login_required
 def browse_doctors(request):
