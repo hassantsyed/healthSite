@@ -90,7 +90,10 @@
       $.ajax({
         type:"GET",
         url:"/teams/addTeam",
-        data: {'key':b.getAttribute("key"), 'id':b.getAttribute("data")}
+        data: {'key':b.getAttribute("key"), 'id':b.getAttribute("data")},
+        success: function(){
+          window.top.location = "/teams";
+        }
       });
       cleanPage(b);
     }
@@ -98,7 +101,10 @@
       $.ajax({
         type:"GET",
         url:"/teams/denyTeam",
-        data: {'key':b.getAttribute("key"), 'id':b.getAttribute("data")}
+        data: {'key':b.getAttribute("key"), 'id':b.getAttribute("data")},
+        success: function(){
+          window.top.location = "/teams";
+        }
       });
       cleanPage(b);
     }
