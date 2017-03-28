@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'teams',
-    'postman',
     'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
