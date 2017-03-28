@@ -1,0 +1,21 @@
+{% extends "teams/pindex.html"%}
+{%block header%}
+    Your Health Team ({{peeps.count}})
+{%endblock%}
+{%block content%}
+<div class="wrapper text-center">
+  <h2 class="text-center">{{p.first_name}} {{p.last_name}}</h2><hr>
+    <div class="row">
+      <div class="col-sm-4">
+          <div class="thumbnail">
+            <img src="{{p.pic.url}}" alt="pro">
+            <div class="caption">
+              <h3><a href="{%url 'train' p.username%}">{{p.first_name}}</a></h3>
+              <button class="btn btn-danger addTask" id="addTask" person="{{p.id}}">Add a Task</button>
+              <input type="text" id="taskInfo">
+            </div>
+          </div>
+      </div>
+      </div>
+    </div>
+{%endblock%}
